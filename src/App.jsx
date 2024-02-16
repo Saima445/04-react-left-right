@@ -1,35 +1,48 @@
 import { useState } from "react";
 
+const History = (props) => {
+  if (props.allClicks.length === 0) {
+    return (
+      <section>
+        <p>the app is used by pressing the buttons</p>
+      </section>
+    );
+  }
+  return (
+    <section>
+      <p>button press history: {props.allClicks.join(" ")}</p>
+    </section>
+  );
+};
+
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
+);
+
 function App() {
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
   const [allClicks, setAll] = useState([]);
-  const [total, setTotal] = useState(0);
 
   const handleLeftClick = () => {
     setAll(allClicks.concat("L"));
     // allClicks.push('L') ÄLÄ TEE NÄIN PUSHAAMALLA SUORAAN MUUTTUJAAN TAULUKKO, SEURAUKSENA VOI OLLA HANKALASTI HAVAITTAVA ONGELMA!
-    const updateLeft = left + 1;
-    setLeft(updateLeft);
-    setTotal(updateLeft + right);
+    setLeft(left + 1);
   };
 
   const handleRightClick = () => {
     setAll(allClicks.concat("R"));
-    const updateRight = right + 1;
-    setRight(updateRight);
-    setTotal(left + updateRight);
+    setRight(right + 1);
   };
 
   return (
     <>
       <div>
         {left}
-        <button onClick={handleLeftClick}>left</button>
-        <button onClick={handleRightClick}>right</button>
+        <Button handleClick={handleLeftClick} text="left" />
+        <Button handleClick={handleRightClick} text="right" />
         {right}
-        <p>{allClicks.join(" ")}</p>
-        <p>total {total}</p>
+        <History allClicks={allClicks} />
       </div>
     </>
   );
