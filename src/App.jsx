@@ -7,6 +7,7 @@ function App() {
 
   const handleLeftClick = () => {
     setAll(allClicks.concat("L"));
+    // allClicks.push('L') ÄLÄ TEE NÄIN PUSHAAMALLA TAULUKKOON, SEURAUKSENA VOI OLLA HANKALASTI HAVAITTAVA ONGELMA!
     setLeft(left + 1);
   };
 
