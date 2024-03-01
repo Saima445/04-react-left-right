@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Button1 from "./components/Button1";
 import History from "./components/History";
+import Button2 from "./components/Button2";
+import Display from "./components/Display";
 
 function App(props) {
   const [left, setLeft] = useState(0);
@@ -29,7 +31,7 @@ function App(props) {
     console.log("hello", who);
   };
 
-  const setToValue = (newValue) => () => {
+  const setToValue = (newValue) => {
     console.log("value now", newValue);
     setValue(newValue);
   };
@@ -52,27 +54,17 @@ function App(props) {
       </div>
       <hr></hr>
       <div>
-        {value}
-        <button onClick={setToValue(1000)}>thousand</button>
-        <button onClick={setToValue(0)}>reset</button>
-        <button onClick={setToValue(value + 1)}>increment</button>
+        <Display value={value} />
+        <Button2 handleClick={() => setToValue(1000)} text="thousand" />
+        <Button2 handleClick={() => setToValue(0)} text="reset" />
+        <Button2 handleClick={() => setToValue(value + 1)} text="increment" />
       </div>
     </>
   );
 }
 
-// function App(props) {
-//   const [value, setValue] = useState(0);
-
-//   return (
-//     <>
-//       {value}
-//       <button onClick={() => setValue(0)}>button</button>
-//       </>
-// )}
-
 // HUOM Hookeja siis kuuluu kutsua ainoastaan React-komponentin
-// määrittelevän funktion rungosta:
+// määrittelevän funktion rungosta. JA älä koskaan määrittele komponenttia toisen komponentin sisällä.
 
 // const App = (props) => {
 //   // nämä ovat ok
