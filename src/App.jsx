@@ -1,37 +1,13 @@
 import { useState } from "react";
-
-const History = (props) => {
-  if (props.allClicks.length === 0) {
-    return (
-      <section>
-        <p>the app is used by pressing the buttons</p>
-      </section>
-    );
-  }
-  return (
-    <section>
-      <p>button press history: {props.allClicks.join(" ")}</p>
-    </section>
-  );
-};
-
-const Button = ({ handleClick, text }) => (
-  //Jos haluat konsoliin printtauksen debuggausta silmällä pitäen,
-  //tee se ilman destrukturointia:
-  // const Button = (props) => {
-  //   console.log('props value is', props) HUOM tulostettavat asiat erotellaan pilkulla!
-  //   const {handleClick, text} = props
-  //   return (
-  //     <button onClick={handleClick}>{text}</button>
-  //   )
-  // }
-  <button onClick={handleClick}>{text}</button>
-);
+import Button1 from "./components/Button1";
+import History from "./components/History";
 
 function App() {
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
   const [allClicks, setAll] = useState([]);
+
+  const [value, setValue] = useState(0);
 
   const handleLeftClick = () => {
     setAll(allClicks.concat("L"));
@@ -48,13 +24,56 @@ function App() {
     <>
       <div>
         {left}
-        <Button handleClick={handleLeftClick} text="left" />
-        <Button handleClick={handleRightClick} text="right" />
+        <Button1 handleClick={handleLeftClick} text="left" />
+        <Button1 handleClick={handleRightClick} text="right" />
         {right}
         <History allClicks={allClicks} />
+      </div>
+      <hr></hr>
+      <div>
+        {value}
+        <button onClick={() => setValue(0)}>button</button>
       </div>
     </>
   );
 }
+
+// function App(props) {
+//   const [value, setValue] = useState(0);
+
+//   return (
+//     <>
+//       {value}
+//       <button onClick={() => setValue(0)}>button</button>
+//       </>
+// )}
+
+// HUOM Hookeja siis kuuluu kutsua ainoastaan React-komponentin
+// määrittelevän funktion rungosta:
+
+// const App = (props) => {
+//   // nämä ovat ok
+//   const [age, setAge] = useState(0)
+//   const [name, setName] = useState('Juha Tauriainen')
+
+//   if ( age > 10 ) {
+//     // ei ehtolauseessa
+//     const [foobar, setFoobar] = useState(null)
+//   }
+
+//   for ( let i = 0; i < age; i++ ) {
+//     // eikä myöskään loopissa
+//     const [rightWay, setRightWay] = useState(false)
+//   }
+
+//   const notGood = () => {
+//     // ei muiden kuin komponentin määrittelevän funktion sisällä
+//     const [x, setX] = useState(-1000)
+//   }
+
+//   return (
+//     //...
+//   )
+// }
 
 export default App;
