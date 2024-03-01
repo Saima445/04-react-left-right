@@ -2,12 +2,12 @@ import { useState } from "react";
 import Button1 from "./components/Button1";
 import History from "./components/History";
 
-function App() {
+function App(props) {
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
   const [allClicks, setAll] = useState([]);
 
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(10);
 
   const handleLeftClick = () => {
     setAll(allClicks.concat("L"));
@@ -18,6 +18,18 @@ function App() {
   const handleRightClick = () => {
     setAll(allClicks.concat("R"));
     setRight(right + 1);
+  };
+
+  // const handleClick = () => {
+  //   console.log("clicked the button");
+  //   setValue(0);
+  // };
+
+  const hello = (who) => {
+    const handler = () => {
+      console.log("hello", who);
+    };
+    return handler;
   };
 
   return (
@@ -32,7 +44,9 @@ function App() {
       <hr></hr>
       <div>
         {value}
-        <button onClick={() => setValue(0)}>button</button>
+        <button onClick={hello("world")}>button</button>
+        <button onClick={hello("react")}>button</button>
+        <button onClick={hello("function")}>button</button>
       </div>
     </>
   );
