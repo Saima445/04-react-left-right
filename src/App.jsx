@@ -25,11 +25,13 @@ function App(props) {
   //   setValue(0);
   // };
 
-  const hello = (who) => {
-    const handler = () => {
-      console.log("hello", who);
-    };
-    return handler;
+  const hello = (who) => () => {
+    console.log("hello", who);
+  };
+
+  const setToValue = (newValue) => () => {
+    console.log("value now", newValue);
+    setValue(newValue);
   };
 
   return (
@@ -43,10 +45,17 @@ function App(props) {
       </div>
       <hr></hr>
       <div>
-        {value}
+        {/* {value} */}
         <button onClick={hello("world")}>button</button>
         <button onClick={hello("react")}>button</button>
         <button onClick={hello("function")}>button</button>
+      </div>
+      <hr></hr>
+      <div>
+        {value}
+        <button onClick={setToValue(1000)}>thousand</button>
+        <button onClick={setToValue(0)}>reset</button>
+        <button onClick={setToValue(value + 1)}>increment</button>
       </div>
     </>
   );
